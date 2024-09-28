@@ -1,0 +1,37 @@
+<div class="container-mobile">
+    <div class="phone-content">
+      <img
+        src="/Image/DALL_E_2024-09-18_07.39.21_-_A_professional_and_modern_logo_design_for_an_app_focused_on_learning_and_asking_questions_to_improve_English_skills._The_logo_should_feature_a_simple_-removebg-preview.png"
+        alt="logo"
+        class="logo"
+      />
+      <div class="text-center">
+        <h1 class="title">احسان چیت ساز</h1>
+        <p class="subtitle">If you can dream, you can do it.</p>
+      </div>
+  
+      <form class="phone-form" (ngSubmit)="submitPhoneNumber()">
+        <div class="input-container">
+          <input
+            type="tel"
+            placeholder="شماره تماس خود را وارد کنید"
+            class="phone-input text-center"
+            [(ngModel)]="phoneNumber"
+            (input)="validatePhoneNumber()"
+            [ngClass]="{ invalid: isInvalid, valid: isValid }"
+            name="phoneNumber"
+          />
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="!isValid">
+          تایید
+        </button>
+      </form>
+  
+      <!-- لودینگ در مرکز صفحه -->
+      <div *ngIf="isLoading" class="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">لطفا صبر کنید...</p>
+      </div>
+    </div>
+  </div>
+  

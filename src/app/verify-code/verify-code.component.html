@@ -1,0 +1,40 @@
+<div class="container-mobile">
+    <div class="phone-content">
+      <img
+        src="/Image/DALL_E_2024-09-18_07.39.21_-_A_professional_and_modern_logo_design_for_an_app_focused_on_learning_and_asking_questions_to_improve_English_skills._The_logo_should_feature_a_simple_-removebg-preview.png"
+        alt="logo"
+        class="logo"
+      />
+      <div class="text-center">
+        <p class="subtitle">Believe in yourself, and anything is possible.</p>
+      </div>
+  
+      <form class="code-form">
+        <div class="input-container">
+          <input
+            type="text"
+            placeholder="کد تأیید را وارد کنید"
+            class="code-input text-center"
+            [(ngModel)]="verificationCode"
+            (input)="validateCode()"
+            [ngClass]="{
+              'valid-code': isCodeValid,
+              'invalid-code': !isCodeValid
+            }"
+            maxlength="6"
+            name="verificationCode"
+            [disabled]="isLoading"
+          />
+        </div>
+  
+        <!-- نمایش لودینگ در وسط صفحه اگر isLoading true باشد -->
+        <div *ngIf="isLoading" class="loading-overlay">
+          <div class="spinner"></div>
+        </div>
+  
+        <!-- نمایش متن لودینگ اگر کد در حال ارسال باشد -->
+        <div *ngIf="isLoading" class="loading-spinner">در حال ارسال...</div>
+      </form>
+    </div>
+  </div>
+  

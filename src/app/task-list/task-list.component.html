@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="header">
+      <div class="progress-container">
+        <progress [value]="completedTasks" [max]="totalTasks"></progress>
+        <p>{{ completedTasks }}/{{ totalTasks }}</p>
+      </div>
+      <div class="date-container">
+        <p>{{ currentShamsiDate }}</p>
+      </div>
+    </div>
+  
+    <div class="task-list">
+      <div *ngFor="let task of tasks" class="task-item">
+        <span>{{ task.title }}</span>
+        <button (click)="updateTaskStatus(task)" [ngClass]="task.isCompleted ? 'completed' : 'not-completed'"></button>
+      </div>
+    </div>
+  
+    <div class="footer">
+      <button (click)="goToCreateTask()">ایجاد</button>
+      <button (click)="goToReport()">گزارش</button>
+    </div>
+  </div>
+  
