@@ -1,8 +1,9 @@
-.container {
-    width: 100%;
+
     .header {
       display: flex;
       justify-content: space-between;
+      width: 90%;
+      color: #fff;
       .progress-container {
         display: flex;
         flex-direction: column;
@@ -10,15 +11,22 @@
       }
       .date-container {
         text-align: right;
+        color: #fff;
       }
     }
     
     .task-list {
       overflow-y: auto;
+      width: 90%;
+   
       .task-item {
         display: flex;
         justify-content: space-between;
         margin: 10px 0;
+        color: #fff;
+        border: 1px #fff solid;
+        padding: 8px;
+        border-radius: 5px;
         button {
           border-radius: 50%;
           width: 20px;
@@ -43,5 +51,121 @@
         font-size: 18px;
       }
     }
+  .router-btn{
+    border-radius: 100%;
   }
-  
+ /* منوی شناور در پایین سمت راست */
+ .menu {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  z-index: 10; /* اطمینان از اینکه منو روی دکمه‌های دیگر نمایش داده شود */
+}
+
+.menu-open-button {
+  z-index: 2;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.task-list button {
+  position: relative;
+  z-index: 1; /* پایین‌تر از منو قرار می‌گیرد */
+  margin-right: 10px; /* فاصله دادن از منوی شناور */
+}
+
+.menu-item,
+.menu-open-button {
+  background: #EEEEEE;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  position: absolute;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 60px;
+  transform: translate3d(0, 0, 0);
+  transition: transform ease-out 200ms;
+  left: 40px;
+}
+
+
+/* استایل برای دکمه‌های سه خط */
+.lines {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: #333;
+  transition: all 0.3s;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.line-1 {
+  top: 18px;
+}
+
+.line-2 {
+  top: 28px;
+}
+
+.line-3 {
+  top: 38px;
+}
+
+/* تغییر خطوط به ضربدر */
+#menu-open:checked + .menu-open-button .line-1 {
+  transform: translateX(-50%) rotate(45deg);
+  top: 28px;
+}
+
+#menu-open:checked + .menu-open-button .line-2 {
+  opacity: 0;
+}
+
+#menu-open:checked + .menu-open-button .line-3 {
+  transform: translateX(-50%) rotate(-45deg);
+  top: 28px;
+}
+/* نمایش سه دکمه به جای شش */
+.menu-open:checked ~ .menu-item:nth-child(3) {
+  transform: translate3d(0px, -80px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(4) {
+  transform: translate3d(-70px, -40px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(5) {
+  transform: translate3d(-70px, 40px, 0);
+}
+
+/* استایل برای دکمه‌های ایجاد و گزارش */
+.blue {
+  background-color: #669AE1;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.green {
+  background-color: #70CC72;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.red {
+  background-color: #FE4365;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+//==============================================

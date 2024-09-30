@@ -1,24 +1,50 @@
-<div class="container">
-    <div class="header">
-      <div class="progress-container">
-        <progress [value]="completedTasks" [max]="totalTasks"></progress>
-        <p>{{ completedTasks }}/{{ totalTasks }}</p>
-      </div>
-      <div class="date-container">
-        <p>{{ currentShamsiDate }}</p>
-      </div>
+<div class="container-mobile">
+  <div class="header">
+    <div class="progress-container">
+      <progress [value]="completedTasks" [max]="totalTasks"></progress>
+      <p>{{ completedTasks }}/{{ totalTasks }}</p>
     </div>
-  
-    <div class="task-list">
-      <div *ngFor="let task of tasks" class="task-item">
-        <span>{{ task.title }}</span>
-        <button (click)="updateTaskStatus(task)" [ngClass]="task.isCompleted ? 'completed' : 'not-completed'"></button>
-      </div>
-    </div>
-  
-    <div class="footer">
-      <button (click)="goToCreateTask()">ایجاد</button>
-      <button (click)="goToReport()">گزارش</button>
+    <div class="date-container">
+      <p>{{ currentShamsiDate }}</p>
     </div>
   </div>
-  
+
+  <div id="checklist" class="task-list">
+    <div
+      *ngFor="let task of tasks"
+      class="task-item"
+      [ngClass]="{ completed: task.isCompleted }"
+      (click)="updateTaskStatus(task)"
+    >
+      <label [for]="'task-' + task.id">{{ task.title }}</label>
+      <input
+        [checked]="task.isCompleted"
+        [value]="task.id"
+        name="r"
+        type="checkbox"
+        [id]="'task-' + task.id"
+        (change)="updateTaskStatus(task)"
+      />
+    </div>
+  </div>
+
+  <nav class="menu">
+    <input
+      type="checkbox"
+      href="#"
+      class="menu-open"
+      name="menu-open"
+      id="menu-open"
+    />
+    <label class="menu-open-button" for="menu-open">
+      <span class="lines line-1"></span>
+      <span class="lines line-2"></span>
+      <span class="lines line-3"></span>
+    </label>
+
+    <!-- فقط سه دکمه نشان داده می‌شود -->
+    <a href="#" class="menu-item blue" (click)="goToCreateTask()">ایجاد </a>
+    <a href="#" class="menu-item green" (click)="goToReport()">گزارش </a>
+    <a href="#" class="menu-item red">چت</a>
+  </nav>
+</div>
