@@ -137,3 +137,18 @@
     font-size: 18px;
     font-weight: bold;
 }
+.btn-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.btn-back {
+    background-color: #ff5733; /* رنگ قرمز */
+}

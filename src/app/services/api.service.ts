@@ -58,6 +58,14 @@ getAiAdvice(userId: string): Observable<any> {
   return this.http.post(`${this.baseUrl}Task/Advices?userId=${userId}`, {}, options);
 }
 
+  // گزارش گیری لیست کار های کاربر
+  getReport(userId: string, startDate: string, endDate: string): Observable<any> {
+    const apiUrl = `${this.baseUrl}Task/report?userId=${userId}&startDate=${startDate}&endDate=${endDate}`;
+    return this.http.get(apiUrl);
+  }
 
-
+    // متد برای دریافت گزارش
+    sendToAI(userId: string, startDate: string, endDate: string): Observable<any> {
+      return this.http.get(`${this.baseUrl}Task/report/sendToAI?userId=${userId}&startDate=${startDate}&endDate=${endDate}`);
+    }
 }

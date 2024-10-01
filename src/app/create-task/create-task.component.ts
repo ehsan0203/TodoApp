@@ -7,6 +7,9 @@ moment.loadPersian({ usePersianDigits: true, dialect: 'persian-modern' });
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Modal } from 'bootstrap';
+
+
 
 @Component({
   selector: 'app-create-task',
@@ -18,12 +21,12 @@ import { FormsModule } from '@angular/forms';
 export class CreateTaskComponent implements OnInit {
   tasks: any[] = []; // ذخیره لیست تسک‌ها
   newTaskTitle: string = '';
+  aiAdvice: string = '';  // To store AI advice
   selectedDate: moment.Moment = moment().add(1, 'day'); // تاریخ به صورت پیش‌فرض فردا
   formattedDate: string = this.getFormattedDate();
   suggestions: string[] = []; // لیست عنوان تسک‌ها
   cachedTasks: string[] = []; // کش کردن عنوان تسک‌ها
-  userId: string = 'BD55F1A6-A687-497B-948A-C581055960A6'; // شناسه کاربر
-
+  userId: string = localStorage.getItem('UserId') || '';
   constructor(private apiService: ApiService, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -113,17 +116,37 @@ export class CreateTaskComponent implements OnInit {
     }
   }
 
-  sendAiAdvice(): void {
+ sendAiAdvice(): void {
     this.apiService.getAiAdvice(this.userId).subscribe(
       (response) => {
-        console.log('AI advice received:', response);  // Log the response for debugging
-        alert(`مشاوره هوش مصنوعی: ${response}`); // Show the alert with the advice response
+        console.log('AI advice received:', response); // Log the response for debugging
+        this.aiAdvice = response; // Set the AI advice message
+        this.openModal(); // Open the modal after receiving advice
       },
       (error) => {
         console.error('Error fetching AI advice:', error); // Log any error
       }
     );
   }
-  
+
+  // Function to open the modal
+  openModal(): void {
+    const modalElement = document.getElementById('adviceModal'); // Get the modal element
+    if (modalElement) {
+      const modal = new Modal(modalElement); // Initialize the modal
+      modal.show(); // Show the modal
+    }
+  }
+
+  // Optional: Function to close the modal (if needed)
+  closeModal(): void {
+    const modalElement = document.getElementById('adviceModal'); // Get the modal element
+    if (modalElement) {
+      const modal = Modal.getInstance(modalElement); // Get the instance of the modal
+      if (modal) {
+        modal.hide(); // Hide the modal
+      }
+    }
+  }
   
 }

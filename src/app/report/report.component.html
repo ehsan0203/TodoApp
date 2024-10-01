@@ -1,0 +1,110 @@
+<div class="container-mobile">
+  <h2>گزارش تسک‌ها</h2>
+
+  <!-- Date Range Inputs in a Row -->
+
+  <!-- Date Range Inputs in a Row -->
+  <div class="row date-picker-container">
+    <div class="col-md-6 col-sm-12 mb-2">
+      <div class="date-picker">
+        <label>از تاریخ:</label>
+        <input
+          type="text"
+          class="form-control text-center"
+          [(ngModel)]="startDate"
+          placeholder="تاریخ شروع"
+        />
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 mb-2">
+      <div class="date-picker">
+        <label>تا تاریخ:</label>
+        <input
+          type="text"
+          class="form-control text-center"
+          [(ngModel)]="endDate"
+          placeholder="تاریخ پایان"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Fetch Report Button -->
+  <div class="row">
+    <div class="col-12 text-center">
+      <button class="btn btn-primary mt-3" (click)="fetchReport()">
+        دریافت گزارش
+      </button>
+    </div>
+  </div>
+
+  <!-- Task Report List -->
+  <div class="task-list" *ngIf="reportData.length > 0">
+    <div *ngFor="let task of reportData" class="task-report-item">
+      <div class="task-date">
+        <span>{{ task.date | jalaliDate }}</span>
+        <!-- تبدیل تاریخ به شمسی -->
+      </div>
+      <div class="task-progress">
+        <span>{{ task.completedTasks }}/{{ task.totalTasks }}</span>
+        <div class="progress-bar-container">
+          <div
+            class="progress-bar"
+            [style.width]="(task.completedTasks / task.totalTasks) * 100 + '%'"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-end fixed-bottom p-3">
+    <a class="btn-circle btn-back" [routerLink]="['/task-list']">بازگشت</a>
+    <a class="btn-circle btn-ai" (click)="sendToAI()">مشاوره</a>
+  </div>
+
+  <!-- قالب مدال -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">در حال لود کردن...</span>
+    </div>
+  </div>
+
+  <!-- مدال -->
+  <div
+    class="modal fade"
+    id="aiAdviceModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">مشاوره هوش مصنوعی</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="بستن"
+            (click)="closeModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div [innerHTML]="aiResponse"></div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            بستن
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -58,7 +58,7 @@ export class TaskListComponent implements OnInit {
 
   goToCreateTask() {
     // هدایت به صفحه ایجاد تسک
-    this.router.navigate(['/create-task']);
+    this.router.navigate(['/task-create']);
   }
 
   goToReport() {
