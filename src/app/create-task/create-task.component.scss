@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
     padding: 20px 0;
     color: #fff;
 }
@@ -51,6 +50,7 @@
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.2); 
     border-radius: 8px;
+    
 }
 
 .edit-task, .delete-task {
@@ -136,19 +136,28 @@
     margin: 0 15px;
     font-size: 18px;
     font-weight: bold;
+    flex-grow: 1; /* باعث می‌شود که تاریخ در مرکز قرار بگیرد */
+    text-align: center; /* مرکز چین کردن متن درون date-selector */
 }
-.btn-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    color: white;
+.d-flex {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between; /* دکمه‌ها را در دو طرف قرار می‌دهد */
+    align-items: center; /* هم‌راستا کردن عناصر در مرکز به صورت عمودی */
+  }
+  .btn-circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    font-size: 12px;
-}
-
-.btn-back {
-    background-color: #ff5733; /* رنگ قرمز */
-}
+  }
+  
+  .btn-circle:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }

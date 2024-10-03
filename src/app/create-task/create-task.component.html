@@ -1,8 +1,14 @@
 <div class="container-mobile">
-  <div class="date-selector">
-    <button (click)="prevDay()">&#8249;</button>
-    <span>{{ formattedDate }}</span>
-    <button (click)="nextDay()">&#8250;</button>
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <!-- دکمه "بازگشت" سمت راست -->
+    <a class="btn-circle btn-back" [routerLink]="['/task-list']">بازگشت</a>
+
+    <!-- تاریخ در وسط -->
+    <div class="date-selector text-center">
+      <button (click)="prevDay()">&#8249;</button>
+      <span>{{ formattedDate }}</span>
+      <button (click)="nextDay()">&#8250;</button>
+    </div>
   </div>
 
   <!-- کادر میانی -->
@@ -15,23 +21,42 @@
       </li>
     </ul>
   </div>
-<!-- Modal -->
-<div class="modal fade" id="adviceModal" tabindex="-1" aria-labelledby="adviceModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="adviceModalLabel">مشاوره هوش مصنوعی</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{ aiAdvice }} <!-- This will show the AI advice message -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="adviceModal"
+    tabindex="-1"
+    aria-labelledby="adviceModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="adviceModalLabel">مشاوره هوش مصنوعی</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{ aiAdvice }}
+          <!-- This will show the AI advice message -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            بستن
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <div class="task-input-container">
     <div class="task-input">
@@ -40,6 +65,7 @@
         placeholder="تسک جدید..."
         [(ngModel)]="newTaskTitle"
         (input)="checkForSuggestions()"
+        (keydown)="onKeyDown($event)"
       />
       <button (click)="submitTask()">ارسال</button>
     </div>
@@ -56,8 +82,5 @@
         {{ suggestion }}
       </div>
     </div>
-  </div>
-  <div class="d-flex justify-content-between align-items-end fixed-bottom p-3">
-    <a class="btn-circle btn-back" [routerLink]="['/task-list']">بازگشت</a>
   </div>
 </div>

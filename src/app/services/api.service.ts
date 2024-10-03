@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private baseUrl: string = 'https://localhost:7201/api/';
+  private baseUrl: string = 'https://todoapi.webchareh.com/api/';
 
   constructor(private http: HttpClient) {}
 

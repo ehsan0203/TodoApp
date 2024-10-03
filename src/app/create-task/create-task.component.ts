@@ -76,6 +76,14 @@ export class CreateTaskComponent implements OnInit {
     this.newTaskTitle = suggestion;
   }
 
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.submitTask(); // فراخوانی متد ارسال تسک
+    }
+
+  }
+  
+  
   // ارسال تسک جدید
     submitTask() {
       const newTask = {
