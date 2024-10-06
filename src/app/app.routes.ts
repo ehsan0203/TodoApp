@@ -7,9 +7,9 @@ import { ReportComponent } from './report/report.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },
+    { path: '', component: LoginComponent ,  canActivate: [AuthGuard] },
 {path:'verify-code', component:VerifyCodeComponent},
-    { path: 'task-list', component: TaskListComponent, canActivate: [AuthGuard] },  // محافظت از این مسیر با AuthGuard
+    { path: 'task-list', component: TaskListComponent },  // محافظت از این مسیر با AuthGuard
     {path:'task-list',component:TaskListComponent},
     {path:'task-create',component:CreateTaskComponent},
     {path:'report',component:ReportComponent}

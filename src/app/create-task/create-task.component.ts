@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import moment from 'moment-jalaali';
 // Load Persian locale and enable Persian digits
@@ -26,6 +26,7 @@ export class CreateTaskComponent implements OnInit {
   formattedDate: string = this.getFormattedDate();
   suggestions: string[] = []; // لیست عنوان تسک‌ها
   cachedTasks: string[] = []; // کش کردن عنوان تسک‌ها
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
   userId: string = localStorage.getItem('UserId') || '';
   constructor(private apiService: ApiService, private http: HttpClient) {}
 
@@ -35,7 +36,15 @@ export class CreateTaskComponent implements OnInit {
       this.cachedTasks = data; // ذخیره تسک‌ها در متغیر cachedTasks
     });
   }
-
+  //برای اسکرول کردن تسک ها به پایین
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+  scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch(err) { } 
+  }
   // دریافت تاریخ به صورت شمسی
   getFormattedDate(): string {
     return this.selectedDate.format('jD jMMMM jYYYY'); // فرمت تاریخ شمسی به زبان فارسی
@@ -96,6 +105,7 @@ export class CreateTaskComponent implements OnInit {
       this.apiService.addTask(newTask).subscribe((response) => {
         console.log('Task created:', response);
         this.getTasksFromApi(); // به‌روزرسانی لیست تسک‌ها پس از افزودن
+        this.scrollToBottom();
         this.newTaskTitle = ''; // پاک کردن ورودی
 
         // بررسی اینکه آیا تعداد تسک‌ها به ۵ رسیده است

@@ -11,13 +11,13 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const userId = localStorage.getItem('UserId');
     
+
     if (userId) {
-      // اگر UserId در localStorage وجود دارد، به کاربر اجازه ورود به صفحه‌های مجاز را می‌دهد.
-      return true;
-    } else {
-      // اگر UserId وجود ندارد، به صفحه لاگین هدایت می‌شود.
-      this.router.navigate(['']);
-      return false;
+      // هدایت به صفحه "select-lesson"
+      this.router.navigate(['/task-list']);
+      return false; // اجازه نمی‌دهد که کاربر به صفحه اصلی دسترسی پیدا کند
     }
+
+    return true; // اجازه دسترسی به صفحه فعلی
   }
 }

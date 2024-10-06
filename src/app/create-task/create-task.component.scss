@@ -1,29 +1,66 @@
+/* ساختار Flexbox برای ردیف بالایی */
+.d-flex {
+    display: flex;
+    justify-content: space-between; /* دکمه "بازگشت" و تاریخ را در دو طرف قرار می‌دهد */
+    align-items: center; /* برای هم‌راستا کردن عناصر به صورت عمودی */
+    padding: 10px 0; /* کمی فاصله از بالا و پایین */
+}
 
-/* تاریخ در بالای صفحه */
+/* دکمه بازگشت به صورت دایره‌ای */
+.btn-circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px; /* کمی فاصله از متن تاریخ */
+}
+
+.btn-circle:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+/* بخش انتخاب تاریخ */
 .date-selector {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 0;
     color: #fff;
 }
 
-/* والد اینپوت و suggestions */
-.task-input-container {
-    position: relative;
-    width: 100%;
+.date-selector span {
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
+/* تنظیمات دکمه‌های تغییر تاریخ */
+.date-selector button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* کادر میانی */
 .middle-box {
     width: 100%;
-    height: 500px; /* ارتفاع تنظیم شده برای محدوده تخته سیاه */
-    overflow-y: scroll; /* فعال کردن اسکرول عمودی */
-    padding: 100px 30px; /* فاصله از بالا و پایین برای جلوگیری از روی چوب رفتن متن */
+    height: 500px;
+    overflow-y: scroll;
+    padding: 100px 30px;
     border: 1px solid #ccc;
     background: url('/Image/note.jpg');
-    background-size: 100% 100%; /* تصویر کامل نمایش داده شود */
-    background-position: center; /* متن در مرکز تخته سیاه قرار گیرد */
-    background-repeat: no-repeat; /* تکرار نشود */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     box-sizing: border-box;
     color: white;
     margin-bottom: 20px;
@@ -32,11 +69,12 @@
 /* حالت موبایل */
 @media (max-width: 600px) {
     .middle-box {
-        max-height: calc(100vh - 200px); /* تنظیم ارتفاع برای موبایل */
-        padding: 80px 40px; /* تنظیم فاصله از لبه‌ها برای موبایل */
+        max-height: calc(100vh - 200px);
+        padding: 80px 40px;
     }
 }
 
+/* استایل لیست تسک‌ها */
 .task-list {
     list-style-type: none;
     padding: 0;
@@ -50,7 +88,6 @@
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.2); 
     border-radius: 8px;
-    
 }
 
 .edit-task, .delete-task {
@@ -66,7 +103,8 @@
 .delete-task {
     background-color: #dc3545;
 }
-/* اینپوت در پایین صفحه */
+
+/* تنظیمات بخش ورودی تسک */
 .task-input {
     display: flex;
     justify-content: space-between;
@@ -74,7 +112,6 @@
 }
 
 .task-input input {
-    position: relative;
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -88,8 +125,10 @@
     border: none;
     cursor: pointer;
 }
-
-/* بخش پیشنهادات به صورت کشویی از پایین به بالا */
+.task-input-container{
+    width: 100%;
+}
+/* بخش پیشنهادات */
 .task-suggestions {
     position: absolute;
     bottom: 100%;
@@ -98,7 +137,6 @@
     max-height: 0;
     overflow-y: hidden;
     background-color: rgba(255, 255, 255, 0.938);
-    backdrop-filter: blur(10px);
     border: 1px solid #ccc;
     transition: all 1s ease;
     transform-origin: bottom;
@@ -106,11 +144,9 @@
     border-radius: 8px;
 }
 
-/* وقتی پیشنهادات نمایش داده شود */
 .task-suggestions.show {
     max-height: 200px;
     overflow-y: auto;
-    transform: scaleY(1);
 }
 
 .suggestion-item {
@@ -122,42 +158,3 @@
 .suggestion-item:hover {
     background-color: #f0f0f0;
 }
-
-/* تنظیمات دکمه های تاریخ */
-.date-selector button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.date-selector span {
-    margin: 0 15px;
-    font-size: 18px;
-    font-weight: bold;
-    flex-grow: 1; /* باعث می‌شود که تاریخ در مرکز قرار بگیرد */
-    text-align: center; /* مرکز چین کردن متن درون date-selector */
-}
-.d-flex {
-    display: flex;
-    justify-content: space-between; /* دکمه‌ها را در دو طرف قرار می‌دهد */
-    align-items: center; /* هم‌راستا کردن عناصر در مرکز به صورت عمودی */
-  }
-  .btn-circle {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    line-height: 50px;
-    border-radius: 50%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-  }
-  
-  .btn-circle:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-  }
