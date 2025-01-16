@@ -28,6 +28,7 @@ export class TaskListComponent implements OnInit {
     const today = new Date();
     const todayShamsi = moment(today).format('jYYYY/jMM/jDD');
     this.currentShamsiDate = todayShamsi;
+    this.sendPendingTasks();
     this.taskService.getTasksForToday(userId!, today.toISOString().split('T')[0]).subscribe((response: any) => {
       this.tasks = response;
       this.totalTasks = this.tasks.length;
@@ -38,22 +39,52 @@ export class TaskListComponent implements OnInit {
   updateTaskStatus(task: any) {
     task.isCompleted = !task.isCompleted;
     
+    // ذخیره در localStorage
+    const pendingTasks = JSON.parse(localStorage.getItem('pendingTasks') || '[]');
+    pendingTasks.push(task);
+    localStorage.setItem('pendingTasks', JSON.stringify(pendingTasks));
+  
+    // ارسال درخواست به سرور
     this.taskService.updateTaskStatus(task.id, task.title, task.isCompleted).subscribe({
       next: (response: any) => {
+        // تسک به‌درستی ارسال شد
+        this.removeTaskFromLocalStorage(task); // حذف تسک از localStorage
         if (task.isCompleted) {
           this.completedTasks++;
-        } 
-        // اگر تسک تیکش برداشته شد، تعداد completedTasks را کاهش بده
-        else {
+        } else {
           this.completedTasks--;
         }
       },
       error: (err) => {
-        // اگر خطایی رخ داد
-        console.error('Failed to update task:', err.error.message);  // نمایش پیام خطا
+        // تسک به سرور ارسال نشد
+        console.error('Failed to update task:', err);
       }
     });
   }
+
+
+sendPendingTasks() {
+  const pendingTasks = JSON.parse(localStorage.getItem('pendingTasks') || '[]');
+  if (pendingTasks.length > 0) {
+    pendingTasks.forEach((task: any) => {
+      this.taskService.updateTaskStatus(task.id, task.title, task.isCompleted).subscribe({
+        next: () => {
+          this.removeTaskFromLocalStorage(task); // حذف تسک از localStorage پس از ارسال موفقیت‌آمیز
+        },
+        error: (err) => {
+          console.error('Failed to send pending task:', err);
+        }
+      });
+    });
+  }
+}
+  
+  removeTaskFromLocalStorage(task: any) {
+    const pendingTasks = JSON.parse(localStorage.getItem('pendingTasks') || '[]');
+    const updatedTasks = pendingTasks.filter((t: any) => t.id !== task.id);
+    localStorage.setItem('pendingTasks', JSON.stringify(updatedTasks));
+  }
+  
   
 
   goToCreateTask() {
