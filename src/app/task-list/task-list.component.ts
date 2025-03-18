@@ -85,7 +85,7 @@ sendPendingTasks() {
     localStorage.setItem('pendingTasks', JSON.stringify(updatedTasks));
   }
   
-  
+
 
   goToCreateTask() {
     // هدایت به صفحه ایجاد تسک

@@ -14,10 +14,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserAnimationsModule ),
     importProvidersFrom(HttpClientModule ),
     importProvidersFrom(RouterModule.forRoot(routes) ),
-
-
-
-
     provideRouter(routes),
   ],
 }).catch(err => console.error(err));
